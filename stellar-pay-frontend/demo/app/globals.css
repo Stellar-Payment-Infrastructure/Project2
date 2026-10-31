@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  padding: 2rem 1rem;
+  background: var(--sp-color-surface);
+  color: var(--sp-color-text);
+  font-family: var(--sp-font-family);
+}
+
+.demo-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  max-width: 40rem;
+  margin: 0 auto;
+}

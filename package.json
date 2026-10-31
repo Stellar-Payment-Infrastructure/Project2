@@ -1,0 +1,15 @@
+{
+  "name": "stellar-pay-suite",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.9",
+  "scripts": {
+    "verify:all": "bash scripts/verify-all.sh"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "stellar-pay-demo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hosted checkout + demo storefront for Stellar Pay (testnet)",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p 3001",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "@creit.tech/stellar-wallets-kit": "2.8.0",
+    "next": "14.2.35",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "stellar-pay-frontend": "0.1.0",
+    "stellar-pay-sdk": "0.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@playwright/test": "1.49.1",
+    "@types/node": "22.20.5",
+    "@types/react": "18.3.31",
+    "@types/react-dom": "18.3.7",
+    "eslint": "9.39.5",
+    "typescript": "5.6.3",
+    "typescript-eslint": "8.72.1",
+    "vitest": "2.1.9"
+  }
+}

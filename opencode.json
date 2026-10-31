@@ -1,0 +1,36 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "nemotron-3-ultra-free",
+  "permission": {
+    "bash": {
+      "cargo *": "allow",
+      "pnpm *": "allow",
+      "npm *": "allow",
+      "stellar *": "allow",
+      "git push --force*": "deny",
+      "git push -f*": "deny",
+      "git *": "allow",
+      "docker *": "allow",
+      "docker-compose *": "allow",
+      "ls *": "allow",
+      "cat *": "allow",
+      "grep *": "allow",
+      "find *": "allow",
+      "mkdir *": "allow",
+      "rm -rf /": "deny",
+      "rm -rf *": "deny",
+      "rm *": "allow",
+      "cp *": "allow",
+      "mv *": "allow"
+    },
+    "edit": "allow",
+    "write": "allow",
+    "read": {
+      "**/*": "allow",
+      ".env*": "deny",
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*.crt": "deny"
+    }
+  }
+}

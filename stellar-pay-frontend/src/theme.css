@@ -1,0 +1,277 @@
+/*
+ * Stellar Pay theme. Override any --sp-* variable on :root or a wrapper.
+ * Dark mode: set data-sp-theme="dark" on <html> or any ancestor.
+ * Colors meet WCAG 2.1 AA contrast (4.5:1 for text) in both themes.
+ */
+:root,
+[data-sp-theme='light'] {
+  --sp-color-bg: #ffffff;
+  --sp-color-surface: #f6f7f9;
+  --sp-color-border: #c9ced6;
+  --sp-color-text: #15181e;
+  --sp-color-text-muted: #4a5260;
+  --sp-color-primary: #1d4ed8;
+  --sp-color-primary-hover: #1e40af;
+  --sp-color-on-primary: #ffffff;
+  --sp-color-success: #166534;
+  --sp-color-success-bg: #dcfce7;
+  --sp-color-warning: #854d0e;
+  --sp-color-warning-bg: #fef3c7;
+  --sp-color-danger: #b91c1c;
+  --sp-color-danger-bg: #fee2e2;
+  --sp-color-focus: #f59e0b;
+
+  --sp-font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --sp-font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sp-font-size-sm: 0.875rem;
+  --sp-font-size-md: 1rem;
+  --sp-font-size-lg: 1.25rem;
+  --sp-font-size-xl: 1.75rem;
+
+  --sp-space-1: 0.25rem;
+  --sp-space-2: 0.5rem;
+  --sp-space-3: 0.75rem;
+  --sp-space-4: 1rem;
+  --sp-space-6: 1.5rem;
+
+  --sp-radius-sm: 6px;
+  --sp-radius-md: 10px;
+  --sp-shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
+  --sp-transition: 150ms ease;
+}
+
+[data-sp-theme='dark'] {
+  --sp-color-bg: #0f1218;
+  --sp-color-surface: #181c24;
+  --sp-color-border: #3a4150;
+  --sp-color-text: #eef1f5;
+  --sp-color-text-muted: #b4bccb;
+  --sp-color-primary: #93b4ff;
+  --sp-color-primary-hover: #b6ccff;
+  --sp-color-on-primary: #0b1330;
+  --sp-color-success: #86efac;
+  --sp-color-success-bg: #12301f;
+  --sp-color-warning: #fcd34d;
+  --sp-color-warning-bg: #33280b;
+  --sp-color-danger: #fca5a5;
+  --sp-color-danger-bg: #3a1414;
+  --sp-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.sp-root {
+  font-family: var(--sp-font-family);
+  color: var(--sp-color-text);
+  font-size: var(--sp-font-size-md);
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+.sp-root *,
+.sp-root *::before,
+.sp-root *::after {
+  box-sizing: inherit;
+}
+
+.sp-card {
+  background: var(--sp-color-bg);
+  border: 1px solid var(--sp-color-border);
+  border-radius: var(--sp-radius-md);
+  box-shadow: var(--sp-shadow-md);
+  padding: var(--sp-space-6);
+  width: 100%;
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.sp-heading {
+  margin: 0 0 var(--sp-space-4);
+  font-size: var(--sp-font-size-lg);
+}
+
+.sp-amount {
+  font-size: var(--sp-font-size-xl);
+  font-weight: 700;
+  margin: 0;
+}
+
+.sp-muted {
+  color: var(--sp-color-text-muted);
+  font-size: var(--sp-font-size-sm);
+}
+
+.sp-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-space-3);
+  flex-wrap: wrap;
+  margin: var(--sp-space-2) 0;
+}
+
+.sp-mono {
+  font-family: var(--sp-font-mono);
+  word-break: break-all;
+}
+
+.sp-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-space-2);
+  min-height: 2.75rem;
+  padding: var(--sp-space-2) var(--sp-space-4);
+  border-radius: var(--sp-radius-sm);
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--sp-transition), border-color var(--sp-transition);
+}
+.sp-button:focus-visible,
+.sp-input:focus-visible {
+  outline: 3px solid var(--sp-color-focus);
+  outline-offset: 2px;
+}
+.sp-button[disabled],
+.sp-button[aria-disabled='true'] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.sp-button--primary {
+  background: var(--sp-color-primary);
+  color: var(--sp-color-on-primary);
+}
+.sp-button--primary:hover:not([disabled]) {
+  background: var(--sp-color-primary-hover);
+}
+.sp-button--secondary {
+  background: var(--sp-color-surface);
+  color: var(--sp-color-text);
+  border-color: var(--sp-color-border);
+}
+.sp-button--block {
+  width: 100%;
+}
+
+.sp-input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: var(--sp-space-2) var(--sp-space-3);
+  border: 1px solid var(--sp-color-border);
+  border-radius: var(--sp-radius-sm);
+  background: var(--sp-color-bg);
+  color: var(--sp-color-text);
+  font: inherit;
+}
+
+.sp-field {
+  display: flex;
+  gap: var(--sp-space-2);
+  align-items: stretch;
+}
+
+.sp-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--sp-space-1);
+}
+
+.sp-alert {
+  border-radius: var(--sp-radius-sm);
+  padding: var(--sp-space-3);
+  margin: var(--sp-space-3) 0;
+  border: 1px solid currentColor;
+}
+.sp-alert--error {
+  color: var(--sp-color-danger);
+  background: var(--sp-color-danger-bg);
+}
+.sp-alert--warning {
+  color: var(--sp-color-warning);
+  background: var(--sp-color-warning-bg);
+}
+.sp-alert--success {
+  color: var(--sp-color-success);
+  background: var(--sp-color-success-bg);
+}
+
+.sp-banner {
+  text-align: center;
+  font-weight: 700;
+  font-size: var(--sp-font-size-sm);
+  padding: var(--sp-space-1) var(--sp-space-2);
+  margin-bottom: var(--sp-space-4);
+  border-radius: var(--sp-radius-sm);
+  color: var(--sp-color-warning);
+  background: var(--sp-color-warning-bg);
+}
+
+/* Status tracker: every state has a text label and a symbol, never color only. */
+.sp-steps {
+  list-style: none;
+  display: flex;
+  gap: var(--sp-space-2);
+  padding: 0;
+  margin: var(--sp-space-4) 0;
+}
+.sp-step {
+  flex: 1;
+  text-align: center;
+  font-size: var(--sp-font-size-sm);
+  padding-top: var(--sp-space-2);
+  border-top: 4px solid var(--sp-color-border);
+  color: var(--sp-color-text-muted);
+}
+.sp-step--done {
+  border-top-color: var(--sp-color-success);
+  color: var(--sp-color-text);
+}
+.sp-step--current {
+  border-top-color: var(--sp-color-primary);
+  color: var(--sp-color-text);
+  font-weight: 700;
+}
+.sp-step--failed {
+  border-top-color: var(--sp-color-danger);
+  color: var(--sp-color-danger);
+  font-weight: 700;
+}
+.sp-step__icon {
+  display: block;
+  font-size: var(--sp-font-size-md);
+}
+
+.sp-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-space-2);
+}
+.sp-qr img {
+  background: #ffffff;
+  padding: var(--sp-space-2);
+  border-radius: var(--sp-radius-sm);
+}
+
+.sp-skeleton {
+  height: 1.25rem;
+  border-radius: var(--sp-radius-sm);
+  background: var(--sp-color-surface);
+  margin: var(--sp-space-2) 0;
+}
+
+.sp-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-button {
+    transition: none;
+  }
+}

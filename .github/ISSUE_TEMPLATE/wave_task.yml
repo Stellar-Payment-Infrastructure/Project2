@@ -1,0 +1,42 @@
+name: Wave Task
+description: Work on a planned Wave issue
+title: "[WAVE] "
+labels: ["wave"]
+body:
+  - type: markdown
+    attributes:
+      value: "Wave issues are defined in PLAYBOOK.md §12. Pick one and describe your approach."
+  - type: dropdown
+    id: repo
+    attributes:
+      label: Repository
+      options:
+        - stellar-pay-core
+        - stellar-pay-api
+        - stellar-pay-frontend
+        - stellar-pay-analytics
+    validations:
+      required: true
+  - type: input
+    id: wave_number
+    attributes:
+      label: Wave Issue Number
+      description: e.g., core-1, api-2, frontend-3, analytics-1
+      placeholder: "core-1"
+    validations:
+      required: true
+  - type: textarea
+    id: approach
+    attributes:
+      label: Implementation Approach
+      description: How will you implement this? Include any design decisions.
+    validations:
+      required: true
+  - type: checkboxes
+    id: mvp_boundary
+    attributes:
+      label: MVP Boundary
+      options:
+        - label: "I have read the MVP boundary for this issue in PLAYBOOK.md §12"
+        - label: "I will not exceed the MVP boundary"
+        - label: "I will mark plug-in points with // TODO(wave: <repo>-<n>)"

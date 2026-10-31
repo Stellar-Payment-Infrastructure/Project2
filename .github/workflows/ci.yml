@@ -1,0 +1,191 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  RUST_VERSION: "1.81.0"
+  NODE_VERSION: "20"
+
+jobs:
+  core:
+    name: stellar-pay-core
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: stellar-pay-core
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          target: wasm32-unknown-unknown
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - name: Verify
+        run: |
+          cargo fmt --check
+          cargo clippy --all-targets -- -D warnings
+          cargo test
+          cargo build --target wasm32-unknown-unknown --release
+
+  api:
+    name: stellar-pay-api
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: stellar-pay-api
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: stellar_pay_api_test
+        ports: 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install pnpm
+        run: corepack enable pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run migrations
+        run: pnpm db:migrate
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/stellar_pay_api_test
+      - name: Verify
+        run: |
+          pnpm run lint
+          pnpm run typecheck
+          pnpm run test
+          pnpm run build
+          pnpm run openapi:check
+
+  sdk:
+    name: stellar-pay-sdk
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: stellar-pay-api/sdk
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install pnpm
+        run: corepack enable pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Verify
+        run: |
+          pnpm run lint
+          pnpm run typecheck
+          pnpm run test
+          pnpm run build
+
+  frontend:
+    name: stellar-pay-frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: stellar-pay-frontend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install pnpm
+        run: corepack enable pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Verify
+        run: |
+          pnpm run lint
+          pnpm run typecheck
+          pnpm run test
+          pnpm run build
+
+  analytics-aggregator:
+    name: stellar-pay-analytics-aggregator
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: stellar-pay-analytics/aggregator
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: stellar_pay_analytics_test
+        ports: 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install pnpm
+        run: corepack enable pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Verify
+        run: |
+          pnpm run lint
+          pnpm run typecheck
+          pnpm run test
+          pnpm run build
+
+  analytics-web:
+    name: stellar-pay-analytics-web
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: stellar-pay-analytics/web
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install pnpm
+        run: corepack enable pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Verify
+        run: |
+          pnpm run lint
+          pnpm run typecheck
+          pnpm run test
+          pnpm run build

@@ -1,0 +1,7 @@
+packages:
+  - "stellar-pay-api"
+  - "stellar-pay-api/sdk"
+  - "stellar-pay-frontend"
+  - "stellar-pay-frontend/demo"
+  - "stellar-pay-analytics/aggregator"
+  - "stellar-pay-analytics/web"

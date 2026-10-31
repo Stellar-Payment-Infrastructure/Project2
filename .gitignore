@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+target/
+
+# Build outputs
+dist/
+build/
+.next/
+*.wasm
+
+# Environment files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Database
+*.sqlite
+*.db
+
+# Secrets
+*.pem
+*.key
+*.crt
+*.secret
+
+# Temporary
+tmp/
+temp/
+*.tmp
+
+# Docker
+docker-compose.override.yml
+# Soroban test snapshots
+test_snapshots/
+
+# Next.js / Storybook / Playwright
+next-env.d.ts
+storybook-static/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# Local DB volumes
+pgdata/
